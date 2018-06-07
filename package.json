@@ -1,6 +1,6 @@
 {
   "name": "vue-easy-print",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "This is a vue.js-based printing component",
   "main": "index.js",
   "scripts": {
