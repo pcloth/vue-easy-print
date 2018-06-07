@@ -1,0 +1,24 @@
+{
+  "name": "vue-easy-print",
+  "version": "0.0.4",
+  "description": "This is a vue.js-based printing component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pcloth/vue-easy-print.git"
+  },
+  "keywords": [
+    "vue",
+    "easy",
+    "print"
+  ],
+  "author": "pcloth@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pcloth/vue-easy-print/issues"
+  },
+  "homepage": "https://github.com/pcloth/vue-easy-print#readme"
+}
