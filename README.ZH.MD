@@ -1,6 +1,10 @@
 # vue-easy-print
 > 这是一个基于vue 2.0的打印组件
-
+<p align="center">
+   <a href="https://www.npmjs.com/package/vue-easy-print"><img src="https://img.shields.io/npm/v/vue-easy-print.svg?style=flat" alt="npm"></a>
+   <a href="https://www.npmjs.com/package/vue-easy-print"><img src="https://img.shields.io/npm/dm/vue-easy-print.svg?style=flat" alt="npm"></a>
+ </p>
+ 
 [中文文档](./README.ZH.MD)
 
 [English](./README.MD)
