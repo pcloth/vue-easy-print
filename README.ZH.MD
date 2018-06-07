@@ -1,24 +1,21 @@
 # vue-easy-print
-> This is a vue.js-based printing component
-
-
+> 这是一个基于vue 2.0的打印组件
 
 [中文文档](./README.ZH.MD)
 
 [English](./README.MD)
 
-# core:
-> Use the vue component slot for template printing
-> Use iframe to copy the print area
+# 核心:
+> 使用vue组件的slot插槽进行模板加载。
+> 使用iframe复制打印区域
 
+## 快速开始
 
-## Quickstart
-
-### step 1:
+### 第一步:
 ``` sh
 npm install vue-easy-print --save
 ```
-### step 2: in your vue
+### 第二步，在你的vue页面里
 ``` js
 import vueEasyPrint from "vue-easy-print";
 import demo from './your path/demo';
@@ -32,7 +29,7 @@ export default {
 }
 ```
 
-### step 3:
+### 第三步，加载模板:
 ``` html
 <vue-easy-print tableShow>
     <template slot-scope="func">
@@ -43,7 +40,7 @@ export default {
 ```
 
 
-## Config
+## 配置props参数
 ``` js
         // 针对分页表格模式：末尾空白行插入
         spaceRow: {
@@ -75,11 +72,11 @@ export default {
 ```
 
 
-## Full demo
+## 完整demo
 ![Alt text](./images/demo.png)
 
 
-## code
+## 代码
 ``` html
 <template>
     <div id="app">
