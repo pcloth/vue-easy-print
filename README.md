@@ -1,211 +1,141 @@
 # vue-easy-print
-> This is a vue.js-based printing component
 
-<p align="center">
-   <a href="https://www.npmjs.com/package/vue-easy-print"><img src="https://img.shields.io/npm/v/vue-easy-print.svg?style=flat" alt="npm"></a>
-   <a href="https://www.npmjs.com/package/vue-easy-print"><img src="https://img.shields.io/npm/dm/vue-easy-print.svg?style=flat" alt="npm"></a>
- </p>
+[![npm](https://img.shields.io/npm/v/vue-easy-print.svg) ![npm](https://img.shields.io/npm/dm/vue-easy-print.svg)](https://www.npmjs.com/package/vue-easy-print)
+[![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/)
 
-[中文文档](./README.ZH.MD)
+Use the vue component slot for template printing Use iframe to copy the print area
 
-[English](./README.MD)
+## Table of contents
 
-# core:
-> Use the vue component slot for template printing
-> Use iframe to copy the print area
+- [Installation](#installation)
+- [Usage](#usage)
+- [Example](#example)
 
-
-## Quickstart
-
-### step 1:
-``` sh
-npm install vue-easy-print --save
-```
-### step 2: in your vue
-``` js
-import vueEasyPrint from "vue-easy-print";
-import demo from './your path/demo';
-
-// in your vue <script>
-export default {
-    components: {
-        vueEasyPrint,
-        demo
-    }
-}
-```
-
-### step 3:
-``` html
-<vue-easy-print tableShow>
-    <template slot-scope="func">
-        <demo :getChineseNumber="func.getChineseNumber"></demo>
-    </template>
-</vue-easy-print>
+# Installation
 
 ```
-
-
-## Config
-``` js
-        // 针对分页表格模式：末尾空白行插入
-        spaceRow: {
-            type:Boolean,
-            default:false,
-        },
-
-        // 针对分页表格模式：传入的打印数据。
-        tableData:{
-            type:Object,
-            default() {
-                return undefined
-            }
-        },
-        // 是否显示表格
-        tableShow:{
-            type:Boolean,
-            default:false
-        },
-        // 每页多少行
-        onePageRow: {
-            type:Number,
-            default:5,
-        },
-        // 复制打印页面前调用的钩子
-        beforeCopy:Function,
-        // 打印页面前调用的钩子
-        beforePrint:Function,
+npm install --save vue-easy-print
 ```
 
+## Default import
 
-## Full demo
-![Alt text](./images/demo.png)
+Install all the components:
+
+```javascript
+import Vue from 'vue'
+import VueEasyPrint from 'vue-easy-print'
+
+Vue.use(VueEasyPrint)
+```
+
+Use specific components:
+
+```javascript
+import Vue from 'vue'
+import { Test } from 'vue-easy-print'
+
+Vue.component('test', Test)
+```
+
+**⚠️ A css file is included when importing the package. You may have to setup your bundler to embed the css in your page.**
+
+## Distribution import
+
+Install all the components:
+
+```javascript
+import 'vue-easy-print/dist/vue-easy-print.css'
+import VueEasyPrint from 'vue-easy-print/dist/vue-easy-print'
+
+Vue.use(VueEasyPrint)
+```
+
+Use specific components:
+
+```javascript
+import 'vue-easy-print/dist/vue-easy-print.css'
+import { Test } from 'vue-easy-print/dist/vue-easy-print'
+
+Vue.component('test', Test)
+```
+
+**⚠️ You may have to setup your bundler to embed the css file in your page.**
 
 
-## code
-``` html
-<template>
-    <div id="app">
-        <button @click="printDemo">测试打印</button>
-        <vue-easy-print tableShow ref="easyPrint" >
-            <!-- 你自己编写打印的模板 -->
-            <!-- <template slot-scope="func">
-                <demo :getChineseNumber="func.getChineseNumber" ></demo>
-            </template> -->
-        </vue-easy-print>
-    </div>
-</template>
+The plugin should be auto-installed. If not, you can install it manually with the instructions below.
 
-<script>
-import vueEasyPrint from "vue-easy-print";
-import demo from "./components/demo";
-export default {
-  name: "App",
-  data() {
-    return {
-      tableData: {
-        id: 998,
-        store_name: "测试店铺",
-        created_at: "2018-06-06 15:21:35",
+Install all the components:
 
-        detail: [
-          {
-            name: "商品A",
-            item_unit: "40ML",
-            item_size: "瓶",
-            item_quantity: 5,
-            item_price: 188,
-            pv: 150,
-            item_total: 5 * 188,
-            item_total_pv: 5 * 150
-          },
-          {
-            name: "商品A",
-            item_unit: "40ML",
-            item_size: "瓶",
-            item_quantity: 5,
-            item_price: 188,
-            pv: 150,
-            item_total: 5 * 188,
-            item_total_pv: 5 * 150
-          },
-          {
-            name: "商品A",
-            item_unit: "40ML",
-            item_size: "瓶",
-            item_quantity: 5,
-            item_price: 188,
-            pv: 150,
-            item_total: 5 * 188,
-            item_total_pv: 5 * 150
-          },
-          {
-            name: "商品A",
-            item_unit: "40ML",
-            item_size: "瓶",
-            item_quantity: 5,
-            item_price: 188,
-            pv: 150,
-            item_total: 5 * 188,
-            item_total_pv: 5 * 150
-          },
-          {
-            name: "商品A",
-            item_unit: "40ML",
-            item_size: "瓶",
-            item_quantity: 5,
-            item_price: 188,
-            pv: 150,
-            item_total: 5 * 188,
-            item_total_pv: 5 * 150
-          },
-          {
-            name: "商品A",
-            item_unit: "40ML",
-            item_size: "瓶",
-            item_quantity: 5,
-            item_price: 188,
-            pv: 150,
-            item_total: 5 * 188,
-            item_total_pv: 5 * 150
-          },
-          {
-            name: "商品A",
-            item_unit: "40ML",
-            item_size: "瓶",
-            item_quantity: 5,
-            item_price: 188,
-            pv: 150,
-            item_total: 5 * 188,
-            item_total_pv: 5 * 150
-          },
-          {
-            name: "商品A",
-            item_unit: "40ML",
-            item_size: "瓶",
-            item_quantity: 5,
-            item_price: 188,
-            pv: 150,
-            item_total: 5 * 188,
-            item_total_pv: 5 * 150
-          }
-        ]
-      }
-    };
-  },
-  methods:{
-    printDemo(){
-      this.$refs.easyPrint.print()
-    }
-  },
-  components: {
-    vueEasyPrint,
-    demo
-  }
-};
-</script>
+```javascript
+Vue.use(VueEasyPrint)
+```
+
+Use specific components:
+
+```javascript
+Vue.component('test', VueEasyPrint.Test)
+```
+
+## Source import
+
+Install all the components:
+
+```javascript
+import Vue from 'vue'
+import VueEasyPrint from 'vue-easy-print/src'
+
+Vue.use(VueEasyPrint)
+```
+
+Use specific components:
+
+```javascript
+import Vue from 'vue'
+import { Test } from 'vue-easy-print/src'
+
+Vue.component('test', Test)
+```
+
+**⚠️ You need to configure your bundler to compile `.vue` files.** More info [in the official documentation](https://vuejs.org/v2/guide/single-file-components.html).
+
+# Usage
+
+> TODO
+
+# Example
+
+> TODO
+
+---
+
+# Plugin Development
+
+## Installation
+
+The first time you create or clone your plugin, you need to install the default dependencies:
 
 ```
+npm install
+```
+
+## Watch and compile
+
+This will run webpack in watching mode and output the compiled files in the `dist` folder.
+
+```
+npm run dev
+```
+
+## Manual build
+
+This will build the plugin into the `dist` folder in production mode.
+
+```
+npm run build
+```
+
+---
+
 ## License
 
-[MIT](https://github.com/pcloth/vue-easy-print/blob/master/LICENSE)
+[MIT](http://opensource.org/licenses/MIT)

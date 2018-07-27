@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div>
         <div v-for="page in pages" :key="page">
             <!-- 分页 -->
             <div class='tab_company_out'>
@@ -26,7 +26,6 @@
                     </tr>
                     <!-- 每页显示onePageRow条数据 -->
                     <tr v-for="(row,index) in tableData.detail.slice((page-1)*onePageRow,page*onePageRow)" :key="index">
-   
                         <td>{{(page-1)*onePageRow + index + 1}}</td>
                         <td>{{row.name}}</td>
                         <td>{{row.item_unit}}</td>
@@ -53,7 +52,6 @@
                             <td></td>
                         </tr>
                     </template>
-
                     <tr v-if="page==pages">
                         <td colspan='2'>合计</td>
                         <td colspan='5'>{{chineseTotal}}</td>
@@ -68,7 +66,6 @@
                         <td></td>
                         <td></td>
                     </tr>
-
                     <tr>
                         <td>备注</td>
                         <td colspan='9'></td>
@@ -96,7 +93,7 @@
 
 <script>
 export default {
-    name:'demo',
+    name: "demo",
     // 制作打印模版组件时，props区域尽量保留。
     props: {
         // 接受的打印数据
@@ -104,63 +101,136 @@ export default {
             type: Object,
             default() {
                 return {
-                    id:998,
-                    store_name:'测试店铺',
-                    created_at:'2018-06-06 15:21:35',
-                    total_amount:35580,
-                    total_pv:23231,
-                    detail:[
-                        {name:'商品A',item_unit:'40ML',item_size:'瓶',item_quantity:5,item_price:188,pv:150,item_total:5*188,item_total_pv:5*150},
-                        {name:'商品A',item_unit:'40ML',item_size:'瓶',item_quantity:5,item_price:188,pv:150,item_total:5*188,item_total_pv:5*150},
-                        {name:'商品A',item_unit:'40ML',item_size:'瓶',item_quantity:5,item_price:188,pv:150,item_total:5*188,item_total_pv:5*150},
-                        {name:'商品A',item_unit:'40ML',item_size:'瓶',item_quantity:5,item_price:188,pv:150,item_total:5*188,item_total_pv:5*150},
-                        {name:'商品A',item_unit:'40ML',item_size:'瓶',item_quantity:5,item_price:188,pv:150,item_total:5*188,item_total_pv:5*150},
-                        {name:'商品A',item_unit:'40ML',item_size:'瓶',item_quantity:5,item_price:188,pv:150,item_total:5*188,item_total_pv:5*150},
-                        {name:'商品A',item_unit:'40ML',item_size:'瓶',item_quantity:5,item_price:188,pv:150,item_total:5*188,item_total_pv:5*150},
-                        {name:'商品A',item_unit:'40ML',item_size:'瓶',item_quantity:5,item_price:188,pv:150,item_total:5*188,item_total_pv:5*150},
+                    id: 998,
+                    store_name: "测试店铺",
+                    created_at: "2018-06-06 15:21:35",
+                    total_amount: 35580,
+                    total_pv: 23231,
+                    detail: [
+                        {
+                            name: "商品A",
+                            item_unit: "40ML",
+                            item_size: "瓶",
+                            item_quantity: 5,
+                            item_price: 188,
+                            pv: 150,
+                            item_total: 5 * 188,
+                            item_total_pv: 5 * 150
+                        },
+                        {
+                            name: "商品A",
+                            item_unit: "40ML",
+                            item_size: "瓶",
+                            item_quantity: 5,
+                            item_price: 188,
+                            pv: 150,
+                            item_total: 5 * 188,
+                            item_total_pv: 5 * 150
+                        },
+                        {
+                            name: "商品A",
+                            item_unit: "40ML",
+                            item_size: "瓶",
+                            item_quantity: 5,
+                            item_price: 188,
+                            pv: 150,
+                            item_total: 5 * 188,
+                            item_total_pv: 5 * 150
+                        },
+                        {
+                            name: "商品A",
+                            item_unit: "40ML",
+                            item_size: "瓶",
+                            item_quantity: 5,
+                            item_price: 188,
+                            pv: 150,
+                            item_total: 5 * 188,
+                            item_total_pv: 5 * 150
+                        },
+                        {
+                            name: "商品A",
+                            item_unit: "40ML",
+                            item_size: "瓶",
+                            item_quantity: 5,
+                            item_price: 188,
+                            pv: 150,
+                            item_total: 5 * 188,
+                            item_total_pv: 5 * 150
+                        },
+                        {
+                            name: "商品A",
+                            item_unit: "40ML",
+                            item_size: "瓶",
+                            item_quantity: 5,
+                            item_price: 188,
+                            pv: 150,
+                            item_total: 5 * 188,
+                            item_total_pv: 5 * 150
+                        },
+                        {
+                            name: "商品A",
+                            item_unit: "40ML",
+                            item_size: "瓶",
+                            item_quantity: 5,
+                            item_price: 188,
+                            pv: 150,
+                            item_total: 5 * 188,
+                            item_total_pv: 5 * 150
+                        },
+                        {
+                            name: "商品A",
+                            item_unit: "40ML",
+                            item_size: "瓶",
+                            item_quantity: 5,
+                            item_price: 188,
+                            pv: 150,
+                            item_total: 5 * 188,
+                            item_total_pv: 5 * 150
+                        }
                     ]
-                }
+                };
             }
         },
 
         // 每页多少行
         onePageRow: {
-            type:Number,
-            default:5,
+            type: Number,
+            default: 5
         },
         // 是否插入空白行
-        blankLines:{
-            type:Boolean,
-            default:true
+        blankLines: {
+            type: Boolean,
+            default: true
         },
 
-        getChineseNumber: Function, // 求数字的中文写法，从easyPrint组件传入
+        getChineseNumber: Function // 求数字的中文写法，从easyPrint组件传入
     },
     data() {
-        return {
-            
-        }
+        return {};
     },
 
     computed: {
         pages() {
             // 求当前数据能打印的页数
-            var pages_ = Math.ceil(this.tableData.detail.length / this.onePageRow) // 向上取整数
-            return pages_ <= 0 ? 1 : pages_
+            var pages_ = Math.ceil(
+                this.tableData.detail.length / this.onePageRow
+            ); // 向上取整数
+            return pages_ <= 0 ? 1 : pages_;
         },
         chineseTotal() {
             // 计算中文合计，如果忘记传入
-            return this.getChineseNumber != null ? this.getChineseNumber(this.tableData.total_amount) : '您还没有传入getChineseNumber'
-        },
+            return this.getChineseNumber != null
+                ? this.getChineseNumber(this.tableData.total_amount)
+                : "您还没有传入getChineseNumber";
+        }
     },
 
-    methods:{
-        test(){
-            console.log('test');
+    methods: {
+        test() {
+            console.log("test");
         }
     }
-
-}
+};
 </script>
 
 <style scoped>
@@ -203,7 +273,7 @@ p span {
 }
 
 p span ins {
-    text-decoration: underline
+    text-decoration: underline;
 }
 
 p time {
