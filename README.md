@@ -13,6 +13,7 @@
 > 使用vue组件的slot插槽进行模板加载。
 > 使用iframe复制打印区域
 
+# [在线demo](https://jsfiddle.net/pcloth/p35vz97u/)
 
 ## 快速开始
 
@@ -43,6 +44,9 @@ export default {
 </vue-easy-print>
 
 ```
+
+## slot-scope
+func.getChineseNumber接收到的方法是一个将金额转换成中文的
 
 
 ## 配置props参数
