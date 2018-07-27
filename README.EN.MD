@@ -5,9 +5,9 @@
    <a href="https://www.npmjs.com/package/vue-easy-print"><img src="https://img.shields.io/npm/dm/vue-easy-print.svg?style=flat" alt="npm"></a>
  </p>
  
-[中文文档](./README.ZH.MD)
+[中文文档](./README.MD)
 
-[English](./README.MD)
+[English](./README.EN.MD)
 
 # 核心:
 > 使用vue组件的slot插槽进行模板加载。
