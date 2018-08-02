@@ -15,6 +15,9 @@
 
 # [在线demo](https://jsfiddle.net/pcloth/p35vz97u/)
 
+## 更新
+v0.0.7 修复兼容性问题。感谢[Wizard67](https://github.com/Wizard67)
+
 ## 快速开始
 
 ### 第一步:

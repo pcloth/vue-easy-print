@@ -1,30 +1,36 @@
-# vue-easy-print
-> 这是一个基于vue 2.0的打印组件
+#vue-easy-print
+>This is a vue 2.0 based print component
 <p align="center">
    <a href="https://www.npmjs.com/package/vue-easy-print"><img src="https://img.shields.io/npm/v/vue-easy-print.svg?style=flat" alt="npm"></a>
    <a href="https://www.npmjs.com/package/vue-easy-print"><img src="https://img.shields.io/npm/dm/vue-easy-print.svg?style=flat" alt="npm"></a>
  </p>
- 
+
 [中文文档](./README.MD)
 
 [English](./README.EN.MD)
 
-# 核心:
-> 使用vue组件的slot插槽进行模板加载。
-> 使用iframe复制打印区域
+# core:
+> Use the slot slot of the vue component to load the template.
+>Copy the print area using iframe
 
-## 快速开始
+# [demo](https://jsfiddle.net/pcloth/p35vz97u/)
 
-### 第一步:
-``` sh
+## Update
+V0.0.7 fixes compatibility issues. Thanks [Wizard67] (https://github.com/Wizard67)
+
+## Quick start
+
+### first step:
+```sh
 npm install vue-easy-print --save
 ```
-### 第二步，在你的vue页面里
-``` js
-import vueEasyPrint from "vue-easy-print";
-import demo from './your path/demo';
 
-// in your vue <script>
+
+###Step 2, in your vue page
+```js
+Import vueEasyPrint from "vue-easy-print";
+Import the demo from './your path / demo';
+
 export default {
     components: {
         vueEasyPrint,
@@ -33,7 +39,7 @@ export default {
 }
 ```
 
-### 第三步，加载模板:
+###Step 3, load the template:
 ``` html
 <vue-easy-print tableShow>
     <template slot-scope="func">
@@ -43,50 +49,51 @@ export default {
 
 ```
 
+## slot-scope
+The method received by func.getChineseNumber is to convert the amount into Chinese.
 
-## 配置props参数
+
+##Configuring props parameters
 ``` js
-        // 针对分页表格模式：末尾空白行插入
+        // For paginated table mode: insert a blank line at the end
         spaceRow: {
             type:Boolean,
             default:false,
         },
 
-        // 针对分页表格模式：传入的打印数据。
+        // For paging table mode: incoming print data.
         tableData:{
             type:Object,
             default() {
                 return undefined
             }
         },
-        // 是否显示表格
+        // Whether to display the table
         tableShow:{
             type:Boolean,
             default:false
         },
-        // 每页多少行
+        // How many lines per page
         onePageRow: {
             type:Number,
             default:5,
         },
-        // 复制打印页面前调用的钩子
+        // Copy the hook that was called before printing the page
         beforeCopy:Function,
-        // 打印页面前调用的钩子
+        // Hooks called before the page is printed
         beforePrint:Function,
 ```
 
 
-## 完整demo
+## demo
 ![Alt text](./images/demo.png)
 
-
-## 代码
 ``` html
 <template>
     <div id="app">
-        <button @click="printDemo">测试打印</button>
+        <button @click="printDemo">print</button>
         <vue-easy-print tableShow ref="easyPrint" >
-            <!-- 你自己编写打印的模板 -->
+            <!-- Write your own printed template -->
             <!-- <template slot-scope="func">
                 <demo :getChineseNumber="func.getChineseNumber" ></demo>
             </template> -->

@@ -1,14 +1,10 @@
 <template>
     <div>
-        <iframe class="easy-print-no-display" ref="easyPrintIframe" id="easyPrintIframe" :srcdoc="textContent" src="" frameborder="0">
-            <h5>您的浏览器不支持iframe</h5>
-        </iframe>
         <div v-show="tableShow" ref="template">
             <slot :getChineseNumber="getChineseNumber">
                 <span>编写你自己的打印区域组件，然后slot插入到vue-easy-print</span>
             </slot>
         </div>
-        <!-- 测试的时候取消easy-print-no-display的class名字。 -->
         <!-- 这里按钮偷了个懒，直接拿了element-ui的css name来用。 -->
         <button v-if="buttonShow" @click="print" type="button" :class="buttonClass">
             <span>开始打印</span>
@@ -17,11 +13,9 @@
 </template>
 
 <script>
-
 export default {
     name: "vue-easy-print",
-    components: {
-    },
+    components: {},
     props: {
         // 针对分页表格模式：末尾空白行插入
         spaceRow: {
@@ -61,33 +55,88 @@ export default {
     },
     data() {
         return {
-            textContent: "<span>正在初始化打印组件...</span>"
         };
     },
-
+    mounted() {
+        this.init();
+    },
     methods: {
-        print() {
-            // 复制head，主要是css部分
-            this.$refs.easyPrintIframe.contentDocument.head.innerHTML =
-                window.document.head.innerHTML;
+        init() {
+            let printI = document.getElementById("easyPrintIframe");
+            if (!printI) {
+                printI = document.createElement("iframe");
+                printI.id = "easyPrintIframe";
+                printI.style.position = 'fixed'
+                printI.style.width = '0'
+                printI.style.height = '0'
+                printI.style.top = '-100px'
 
+                // 兼容ie
+                if (
+                    window.location.hostname !== document.domain &&
+                    navigator.userAgent.match(/msie/i)
+                ) {
+                    
+                    printI.src =
+                        'javascript:document.write("<head><script>document.domain=\\"' +
+                        document.domain +
+                        '\\";</s' +
+                        'cript></head><body></body>")';
+                   
+                }
+                printI.onload = () => {
+                    this.getStyle();
+                }
+                 
+                document.body.appendChild(printI);
+            }else{
+                this.getStyle();
+            } 
+        },
+        print() {
             if (typeof this.beforeCopy === "function") {
                 // 检测到有复制前需要执行的功能
                 this.beforeCopy();
             }
 
+            let $iframe = document.getElementById("easyPrintIframe");
             // 复制body，打印内容
-            this.$refs.easyPrintIframe.contentDocument.body.innerHTML = this.$refs.template.innerHTML;
+            $iframe.contentDocument.body.innerHTML = this.$refs.template.innerHTML;
 
             if (typeof this.beforePrint === "function") {
                 // 检测到有打印前需要执行的功能
+                // 比如有些二维码组件无法直接复制dom完成。
                 this.beforePrint();
             }
 
-            // 打印开始
-            this.$refs.easyPrintIframe.contentWindow.print();
-        },
+            setTimeout(() => {
+                $iframe.contentWindow.print();
+            }, 100);
 
+        },
+        getStyle() {
+            let printI = document.getElementById("easyPrintIframe");
+            var str = "",
+                styles1 = document.querySelectorAll("style");
+            for (var i = 0; i < styles1.length; i++) {
+                str += styles1[i].outerHTML;
+            }
+
+            printI.contentDocument.head.innerHTML = str;
+            // 添加link引入
+            let styles = document.querySelectorAll("link");
+            for (let i = 0; i < styles.length; i++) {
+                // chrome 正常，firefox不正常，能执行到，但是添加没结果
+                let link = document.createElement("link");
+                link.setAttribute("rel", "stylesheet");
+                if(styles[i].type) link.setAttribute("type", styles[i].type);
+                else link.setAttribute("type", 'text/css');
+                link.setAttribute("href", styles[i].href);
+                link.setAttribute('media','all');
+                printI.contentDocument.head.appendChild(link);
+            }
+            
+        },
         getChineseNumber(currencyDigits) {
             // 转换数字到中文大写，请用prop传递给模版组件，这个函数在网上扣的。
             var MAXIMUM_NUMBER = 99999999999.99;
@@ -230,15 +279,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-.easy-print-no-display {
-    /* 调试模式下屏蔽css即可 */
-    width: 0;
-    height: 0;
-    top: -100%;
-    left: -100%;
-    position: fixed;
-    z-index: 0;
-}
-</style>
