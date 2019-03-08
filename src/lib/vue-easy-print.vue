@@ -108,11 +108,13 @@ export default {
                 // 比如有些二维码组件无法直接复制dom完成。
                 this.beforePrint();
             }
-
-            setTimeout(() => {
-                $iframe.contentWindow.print();
-            }, 100);
-
+            
+            // 执行打印
+            this.$nextTick(() => { 
+                setTimeout(() => {
+                    $iframe.contentWindow.print();
+                }, 100);
+             })
         },
         getStyle() {
             let printI = document.getElementById("easyPrintIframe");
