@@ -125,9 +125,9 @@ export default {
         return
       }
 
-      var str = '',
-        styles1 = document.querySelectorAll('style')
-      for (var i = 0; i < styles1.length; i++) {
+      let str = ''
+      let styles1 = document.querySelectorAll('style')
+      for (let i = 0; i < styles1.length; i++) {
         str += styles1[i].outerHTML
       }
 
@@ -185,7 +185,7 @@ export default {
         return ''
       }
       currencyDigits = currencyDigits.toString()
-      if (currencyDigits == '') {
+      if (currencyDigits === '') {
         // alert("Empty input!");
         return ''
       }
@@ -196,7 +196,7 @@ export default {
       if (
         currencyDigits.match(
           /^((\d{1,3}(,\d{3})*(.((\d{3},)*\d{1,3}))?)|(\d+(.\d+)?))$/
-        ) == null
+        ) === null
       ) {
         // alert("Illegal format of digit number!");
         return ''
@@ -224,7 +224,7 @@ export default {
         decimal = ''
       }
       // Prepare the characters corresponding to the digits:
-      digits = new Array(
+      digits = [
         CN_ZERO,
         CN_ONE,
         CN_TWO,
@@ -235,10 +235,10 @@ export default {
         CN_SEVEN,
         CN_EIGHT,
         CN_NINE
-      )
-      radices = new Array('', CN_TEN, CN_HUNDRED, CN_THOUSAND)
-      bigRadices = new Array('', CN_TEN_THOUSAND, CN_HUNDRED_MILLION)
-      decimals = new Array(CN_TEN_CENT, CN_CENT)
+      ]
+      radices = ['', CN_TEN, CN_HUNDRED, CN_THOUSAND]
+      bigRadices = ['', CN_TEN_THOUSAND, CN_HUNDRED_MILLION]
+      decimals = [CN_TEN_CENT, CN_CENT]
       // Start processing:
       outputCharacters = ''
       // Process integral part if it is larger than 0:
@@ -249,7 +249,7 @@ export default {
           d = integral.substr(i, 1)
           quotient = p / 4
           modulus = p % 4
-          if (d == '0') {
+          if (d === '0') {
             zeroCount++
           } else {
             if (zeroCount > 0) {
@@ -259,26 +259,26 @@ export default {
             outputCharacters +=
                             digits[Number(d)] + radices[modulus]
           }
-          if (modulus == 0 && zeroCount < 4) {
+          if (modulus === 0 && zeroCount < 4) {
             outputCharacters += bigRadices[quotient]
           }
         }
         outputCharacters += CN_DOLLAR
       }
       // Process decimal part if there is:
-      if (decimal != '') {
+      if (decimal !== '') {
         for (i = 0; i < decimal.length; i++) {
           d = decimal.substr(i, 1)
-          if (d != '0') {
+          if (d !== '0') {
             outputCharacters += digits[Number(d)] + decimals[i]
           }
         }
       }
       // Confirm and return the final output string:
-      if (outputCharacters == '') {
+      if (outputCharacters === '') {
         outputCharacters = CN_ZERO + CN_DOLLAR
       }
-      if (decimal == '') {
+      if (decimal === '') {
         outputCharacters += CN_INTEGER
       }
       outputCharacters = CN_SYMBOL + outputCharacters
