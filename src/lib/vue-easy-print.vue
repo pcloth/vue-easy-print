@@ -49,9 +49,10 @@ export default {
       type: Number,
       default: 5
     },
-    // 自定义样式
-    styleHTML: {
-      type: String
+    // 是否自定义样式
+    isCustomStyle: {
+      type: Boolean,
+      default: false
     },
     beforeCopy: Function,
     beforePrint: Function
@@ -94,13 +95,18 @@ export default {
         this.getStyle()
       }
     },
-    print () {
+    print (styleHTML) {
       if (typeof this.beforeCopy === 'function') {
         // 检测到有复制前需要执行的功能
         this.beforeCopy()
       }
 
       let $iframe = document.getElementById('easyPrintIframe')
+
+      if(styleHTML){
+        $iframe.contentDocument.head.innerHTML = styleHTML
+      }
+
       // 复制body，打印内容
       $iframe.contentDocument.body.innerHTML = this.$refs.template.innerHTML
 
@@ -118,6 +124,10 @@ export default {
       })
     },
     getStyle () {
+      if(this.isCustomStyle){
+        return;
+      }
+
       let printI = document.getElementById('easyPrintIframe')
 
       if (this.styleHTML) {
