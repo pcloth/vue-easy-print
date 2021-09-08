@@ -76,45 +76,47 @@ export default {
                     window.location.hostname !== document.domain &&
                     navigator.userAgent.match(/msie/i)
                 ) {
-                    
+
                     printI.src =
                         'javascript:document.write("<head><script>document.domain=\\"' +
                         document.domain +
                         '\\";</s' +
                         'cript></head><body></body>")';
-                   
+
                 }
                 printI.onload = () => {
                     this.getStyle();
                 }
-                 
+
                 document.body.appendChild(printI);
             }else{
                 this.getStyle();
-            } 
+            }
         },
         print() {
             if (typeof this.beforeCopy === "function") {
                 // 检测到有复制前需要执行的功能
                 this.beforeCopy();
             }
-
             let $iframe = document.getElementById("easyPrintIframe");
-            // 复制body，打印内容
-            $iframe.contentDocument.body.innerHTML = this.$refs.template.innerHTML;
+            this.$nextTick(() => {
+                // 复制body，打印内容
+                $iframe.contentDocument.body.innerHTML = this.$refs.template.innerHTML;
 
-            if (typeof this.beforePrint === "function") {
-                // 检测到有打印前需要执行的功能
-                // 比如有些二维码组件无法直接复制dom完成。
-                this.beforePrint();
-            }
-            
-            // 执行打印
-            this.$nextTick(() => { 
-                setTimeout(() => {
-                    $iframe.contentWindow.print();
-                }, 100);
-             })
+                if (typeof this.beforePrint === "function") {
+                    // 检测到有打印前需要执行的功能
+                    // 比如有些二维码组件无法直接复制dom完成。
+                    this.beforePrint();
+                }
+
+
+                // 执行打印
+                this.$nextTick(() => {
+                    setTimeout(() => {
+                        $iframe.contentWindow.print();
+                    }, 100);
+                })
+            })
         },
         getStyle() {
             let printI = document.getElementById("easyPrintIframe");
@@ -137,7 +139,7 @@ export default {
                 link.setAttribute('media','all');
                 printI.contentDocument.head.appendChild(link);
             }
-            
+
         },
         getChineseNumber(currencyDigits) {
             // 转换数字到中文大写，请用prop传递给模版组件，这个函数在网上扣的。
