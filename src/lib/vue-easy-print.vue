@@ -17,19 +17,6 @@ export default {
     name: "vue-easy-print",
     components: {},
     props: {
-        // 针对分页表格模式：末尾空白行插入
-        spaceRow: {
-            type: Boolean,
-            default: false
-        },
-
-        // 针对分页表格模式：传入的打印数据。
-        tableData: {
-            type: Object,
-            default() {
-                return undefined;
-            }
-        },
         // 是否显示表格
         tableShow: {
             type: Boolean,
@@ -44,14 +31,9 @@ export default {
             type: String,
             default: "el-button el-button--default"
         },
-        // 每页多少行
-        onePageRow: {
-            type: Number,
-            default: 5
-        },
-
         beforeCopy: Function,
-        beforePrint: Function
+        beforePrint: Function,
+        styleHTML: String
     },
     data() {
         return {
@@ -120,6 +102,10 @@ export default {
         },
         getStyle() {
             let printI = document.getElementById("easyPrintIframe");
+            if(this.styleHTML){
+                printI.contentDocument.head.innerHTML = this.styleHTML;
+                return;
+            }
             var str = "",
                 styles1 = document.querySelectorAll("style");
             for (var i = 0; i < styles1.length; i++) {

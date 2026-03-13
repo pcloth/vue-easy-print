@@ -1,7 +1,7 @@
 {
     "name": "vue-easy-print",
     "description": "Use the vue component slot for template printing Use iframe to copy the print area",
-    "version": "0.0.9",
+    "version": "1.0.0",
     "author": "pcloth@gmail.com",
     "keywords": [
         "vue",
@@ -13,6 +13,7 @@
     "scripts": {
         "dev": "node build/dev-server.js",
         "build": "node build/build.js",
+        "publish": "npm run build && npm publish",
         "lint": "eslint --ext .js,.vue src",
         "fix": "npm run lint -- --fix"
     },
@@ -78,5 +79,8 @@
         "> 1%",
         "last 2 versions",
         "not ie <= 8"
-    ]
+    ],
+    "volta": {
+        "node": "14.21.3"
+    }
 }
